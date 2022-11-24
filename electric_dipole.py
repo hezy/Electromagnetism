@@ -68,7 +68,7 @@ E_max_ = 400
 E_[E_>E_max_] = E_max_
 E_[E_<-E_max_] = -E_max_
 
-plt.quiver(x, y, cos_, sin_, E_, pivot='mid')
+plt.quiver(x, y, sin_, cos_, E_, pivot='mid')
 #plt.streamplot(x, y, Ex_, Ey_)
 plt.colorbar(label='Electrical Field [$V/m$]')
 plt.title('Electrical Field of a Dipole')
