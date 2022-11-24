@@ -17,7 +17,7 @@ q2 = 1E-9
 x2, y2  = 0.3, 0
 V = k*q1/np.sqrt((x-x1)**2+(y-y1)**2) - k*q2/np.sqrt((x-x2)**2+(y-y2)**2)
 
-plt.style.use(['nature','notebook'])
+#plt.style.use(['notebook'])
 plt.contourf(x,y,V, levels=300, cmap='seismic', vmin=-150, vmax=150)
 plt.colorbar(label='Electrical Potential [$V$]')
 plt.title('Electrical Potential of a Dipole')
@@ -35,7 +35,7 @@ E = np.sqrt(Ex**2 + Ey**2)
 Ex = Ex/E
 Ey = Ey/E
 
-plt.style.use(['nature','notebook'])
+#plt.style.use(['notebook'])
 plt.quiver(x, y, Ex, Ey, E)
 plt.colorbar(label='Electrical Field [$V/m$]')
 plt.title('Electrical Field of a Dipole')
@@ -49,7 +49,7 @@ Ex_ = -1 * np.gradient(V, dx, dy)[0]
 Ey_ = -1 * np.gradient(V, dx, dy)[1]
 # E = -1 * np.gradient(V, dx, dy)
 
-plt.style.use(['nature','notebook'])
+#plt.style.use(['nature','notebook'])
 plt.quiver(x, y, Ex_, Ey_)
 plt.colorbar(label='Electrical Field [$V/m$]')
 plt.title('Electrical Field of a Dipole')
