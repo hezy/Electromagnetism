@@ -15,16 +15,33 @@ x, y = np.meshgrid(sx,sy)
 dx = x[0,1] - x[0,0]
 dy = y[1,0] - y[0,0]
 
-# physical parameters
+
+
+def plc_V(q, R, x, y, x0, y0):
+# the potential at x,y of a point like charge q at x0,y,0
+    k = 9E9
+    V = k*q/np.hypot((x-x0),(y-y0))
+    return V
+
+
+def plc_Ex(q, x, y, x0, y0):
+# the x componenet of the field at x,y, of a point like charge q at x0,y,0
+    k = 9E9
+    Ex = k*q*(x-x0)/(np.hypot((x-x0),(y-y0)))**3
+    return Ex
+
+
 k = 9E9
+# physical parameters
 q1 = 1E-9
+R1 = 0.1
 x1, y1  = -0.3, 0
 q2 = -1E-9
+R2 = 0.1
 x2, y2  = 0.3, 0
 
 # The potential
-V = (k*q1/np.sqrt((x-x1)**2+(y-y1)**2) + 
-     k*q2/np.sqrt((x-x2)**2+(y-y2)**2))
+V = plc_V(q1, R1, x, y, x1, y1) + plc_V(q2, R2, x, y, x2, y2)
 
 # Plotting the potential
 plt.contourf(x,y,V, levels=300, cmap='seismic', vmin=-150, vmax=150)
@@ -36,17 +53,14 @@ plt.show()
 
 
 # The electric field (theory)
-Ex = (k*q1*(x-x1)/((x-x1)**2+(y-y1)**2)**(3/2) +
-      k*q2*(x-x2)/((x-x2)**2+(y-y2)**2)**(3/2))
-
-Ey = (k*q1*(y-y1)/((x-x1)**2+(y-y1)**2)**(3/2) +
-      k*q2*(y-y2)/((x-x2)**2+(y-y2)**2)**(3/2))
+Ex = plc_Ex(q1, x, y, x1, y1) + plc_Ex(q2, x, y, x2, y2)
+Ey = plc_Ex(q1, y, x, y1, x1) + plc_Ex(q2, y, x, y2, x2)
 
 E = np.hypot(Ex, Ey)
 cos = Ex/E
 sin = Ey/E
 
-E_max = 400
+E_max = 500
 E[E>E_max] = E_max
 E[E<-E_max] = -E_max
 
@@ -68,7 +82,7 @@ E_ = np.hypot(Ex, Ey)
 cos_ = Ex_/E_
 sin_ = Ey_/E_
 
-E_max_ = 400
+E_max_ = 500
 E_[E_>E_max_] = E_max_
 E_[E_<-E_max_] = -E_max_
 
